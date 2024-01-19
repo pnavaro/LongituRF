@@ -1,0 +1,79 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# LongituRF
+
+<!-- badges: start -->
+[![Documentation](https://img.shields.io/website?url=https%3A%2F%2Fpnavaro.github.io%2FLongituRF%2F)](https://pnavaro.github.io/LongituRF/)
+
+<!-- badges: end -->
+
+The goal of LongituRF implements Random forests for longitudinal
+data using stochastic semiparametric miced-model
+
+## Installation
+
+You can install the development version of LongituRF from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("sistm/LongituRF")
+```
+
+## Example
+
+Simulate longitudinal data according to the semi-parametric stochastic mixed-effects model
+
+```{r example}
+library(LongituRF)
+set.seed(123)
+data <- DataLongGenerator(n=20) # Generate the data composed by n=20 individuals.
+```
+
+Train a SMERF model on the generated data. Should take ~ 50 seconds
+The data are generated with a Brownian motion,
+so we use the parameter sto="BM" to specify a Brownian motion as stochastic process
+
+```{r merf}
+smerf <- MERF(X=data$X,Y=data$Y,Z=data$Z,id=data$id,time=data$time,mtry=2,ntree=500,sto="BM")
+```
+
+is the fitted random forest (obtained at the last iteration).
+
+```{r smerf}
+smerf$forest 
+```
+
+are the predicted random effects for each individual.
+
+```{r random_effects}
+smerf$random_effects 
+```
+
+are the predicted stochastic processes.
+
+```{r omega}
+smerf$omega 
+```
+
+```{r plot}
+plot(smerf$Vraisemblance) # evolution of the log-likelihood.
+```
+
+OOB error at each iteration.
+
+```{r error}
+smerf$OOB 
+```
