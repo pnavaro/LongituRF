@@ -176,16 +176,13 @@ MERF <- function(X,Y,id,Z,iter=100,mtry=ceiling(ncol(X)/3),ntree=500, time, sto,
 
     if ( sto=="none"){
       for (i in 1:iter){
-        print(paste("iter = ", i))
         ystar <- rep(NA,length(Y))
         for (k in 1:nind){ #### on retrace les effets al?atoires
           indiv <- which(id==unique(id)[k])
           ystar[indiv] <- Y[indiv]- Z[indiv,,drop=FALSE]%*%btilde[k,]
         }
-        print(ystar)
         forest <- randomForest(X,ystar,mtry=mtry,ntree=ntree, importance = TRUE) ### on construit l'arbre
         fhat <- predict(forest)
-        print(paste("fhat=",fhat))
         OOB[i] <- forest$mse[ntree]
         for (k in 1:nind){
           indiv <- which(id==unique(id)[k])
@@ -218,8 +215,6 @@ MERF <- function(X,Y,id,Z,iter=100,mtry=ceiling(ncol(X)/3),ntree=500, time, sto,
       indiv <- which(id==unique(id)[k])
       ystar[indiv] <- Y[indiv]- Z[indiv,, drop=FALSE]%*%btilde[k,]- omega[indiv]
     }
-    print("coucou")
-    print(sum(is.na(ystar)))
     forest <- randomForest(X,ystar,mtry=mtry,ntree=ntree, importance=TRUE)
     fhat <- predict(forest)
     OOB[i] <- forest$mse[ntree]
