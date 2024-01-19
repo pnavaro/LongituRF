@@ -50,8 +50,139 @@
   </div>
 </nav><div class="container template-home">
 <div class="row">
-  <main id="main" class="col-md-9">
-Random forests are a statistical learning method widely used in many areas of scientific research essentially for its ability to learn complex relationships between input and output variables and also its capacity to handle high-dimensional data. However, current random forests approaches are not flexible enough to handle longitudinal data. In this package, we propose a general approach of random forests for high-dimensional longitudinal data. It includes a flexible stochastic model which allows the covariance structure to vary over time. Furthermore, we introduce a new method which takes intra-individual covariance into consideration to build random forests. The method is fully detailled in Capitaine et.al. (2020) &lt;<a href="https://doi.org/10.1177/0962280220946080" class="external-link">doi:10.1177/0962280220946080</a>&gt; Random forests for high-dimensional longitudinal data.
+  <main id="main" class="col-md-9"><div class="section level1">
+<div class="page-header"><h1 id="longiturf">LongituRF<a class="anchor" aria-label="anchor" href="#longiturf"></a>
+</h1></div>
+<!-- badges: start -->
+
+<!-- badges: end -->
+<p>The goal of LongituRF implements Random forests for longitudinal data using stochastic semiparametric miced-model</p>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
+<p>You can install the development version of LongituRF from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># install.packages("devtools")</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"sistm/LongituRF"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
+</h2>
+<p>Simulate longitudinal data according to the semi-parametric stochastic mixed-effects model</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">LongituRF</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
+<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/DataLongGenerator.html">DataLongGenerator</a></span><span class="op">(</span>n<span class="op">=</span><span class="fl">20</span><span class="op">)</span> <span class="co"># Generate the data composed by n=20 individuals.</span></span></code></pre></div>
+<p>Train a SMERF model on the generated data. Should take ~ 50 seconds The data are generated with a Brownian motion, so we use the parameter sto=“BM” to specify a Brownian motion as stochastic process</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">smerf</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/MERF.html">MERF</a></span><span class="op">(</span>X<span class="op">=</span><span class="va">data</span><span class="op">$</span><span class="va">X</span>,Y<span class="op">=</span><span class="va">data</span><span class="op">$</span><span class="va">Y</span>,Z<span class="op">=</span><span class="va">data</span><span class="op">$</span><span class="va">Z</span>,id<span class="op">=</span><span class="va">data</span><span class="op">$</span><span class="va">id</span>,time<span class="op">=</span><span class="va">data</span><span class="op">$</span><span class="va">time</span>,mtry<span class="op">=</span><span class="fl">2</span>,ntree<span class="op">=</span><span class="fl">500</span>,sto<span class="op">=</span><span class="st">"BM"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "coucou"</span></span>
+<span><span class="co">#&gt; [1] 0</span></span>
+<span><span class="co">#&gt; [1] "coucou"</span></span>
+<span><span class="co">#&gt; [1] 0</span></span>
+<span><span class="co">#&gt; [1] "coucou"</span></span>
+<span><span class="co">#&gt; [1] 0</span></span>
+<span><span class="co">#&gt; [1] "coucou"</span></span>
+<span><span class="co">#&gt; [1] 0</span></span>
+<span><span class="co">#&gt; [1] "coucou"</span></span>
+<span><span class="co">#&gt; [1] 0</span></span>
+<span><span class="co">#&gt; [1] "coucou"</span></span>
+<span><span class="co">#&gt; [1] 0</span></span>
+<span><span class="co">#&gt; [1] "coucou"</span></span>
+<span><span class="co">#&gt; [1] 0</span></span>
+<span><span class="co">#&gt; [1] "coucou"</span></span>
+<span><span class="co">#&gt; [1] 0</span></span>
+<span><span class="co">#&gt; [1] "coucou"</span></span>
+<span><span class="co">#&gt; [1] 0</span></span>
+<span><span class="co">#&gt; [1] "stopped after 9 iterations."</span></span></code></pre></div>
+<p>is the fitted random forest (obtained at the last iteration).</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">smerf</span><span class="op">$</span><span class="va">forest</span> </span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Call:</span></span>
+<span><span class="co">#&gt;  randomForest(x = X, y = ystar, ntree = ntree, mtry = mtry, importance = TRUE) </span></span>
+<span><span class="co">#&gt;                Type of random forest: regression</span></span>
+<span><span class="co">#&gt;                      Number of trees: 500</span></span>
+<span><span class="co">#&gt; No. of variables tried at each split: 2</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;           Mean of squared residuals: 0.4005203</span></span>
+<span><span class="co">#&gt;                     % Var explained: 97.57</span></span></code></pre></div>
+<p>are the predicted random effects for each individual.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">smerf</span><span class="op">$</span><span class="va">random_effects</span> </span>
+<span><span class="co">#&gt;              [,1]       [,2]</span></span>
+<span><span class="co">#&gt;  [1,] -0.46545632 -1.9584240</span></span>
+<span><span class="co">#&gt;  [2,] -0.60530661 -2.0561015</span></span>
+<span><span class="co">#&gt;  [3,]  0.62433379  2.5974150</span></span>
+<span><span class="co">#&gt;  [4,] -0.65495056 -1.9787038</span></span>
+<span><span class="co">#&gt;  [5,]  0.46485020  1.5597098</span></span>
+<span><span class="co">#&gt;  [6,] -0.49842183 -1.3231947</span></span>
+<span><span class="co">#&gt;  [7,] -0.75897409 -1.5594130</span></span>
+<span><span class="co">#&gt;  [8,] -0.13052697 -0.6619248</span></span>
+<span><span class="co">#&gt;  [9,]  0.47026042  1.1258680</span></span>
+<span><span class="co">#&gt; [10,]  0.62681822  2.7196653</span></span>
+<span><span class="co">#&gt; [11,] -0.67647906 -1.4174617</span></span>
+<span><span class="co">#&gt; [12,] -0.04658720  1.0042308</span></span>
+<span><span class="co">#&gt; [13,] -0.06078194  0.6178129</span></span>
+<span><span class="co">#&gt; [14,]  0.03773176  0.4135450</span></span>
+<span><span class="co">#&gt; [15,] -0.16392902 -0.7666988</span></span>
+<span><span class="co">#&gt; [16,]  0.31558309  1.2505464</span></span>
+<span><span class="co">#&gt; [17,]  0.26428589  0.8163429</span></span>
+<span><span class="co">#&gt; [18,]  0.22852866  1.8418661</span></span>
+<span><span class="co">#&gt; [19,]  0.49234613  1.2713469</span></span>
+<span><span class="co">#&gt; [20,]  0.27416833  0.9196796</span></span></code></pre></div>
+<p>are the predicted stochastic processes.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">smerf</span><span class="op">$</span><span class="va">omega</span> </span>
+<span><span class="co">#&gt;   [1]  0.021384336  0.153636918  0.660845719  0.203663436  0.844951005</span></span>
+<span><span class="co">#&gt;   [6]  1.405052995  1.395484983  1.693417774  2.465496910 -0.230499119</span></span>
+<span><span class="co">#&gt;  [11] -0.696626782 -0.598514083 -0.091560739 -0.216310002  0.230512038</span></span>
+<span><span class="co">#&gt;  [16]  0.339009358  1.107898069  1.702639959  1.942853432  2.909096520</span></span>
+<span><span class="co">#&gt;  [21] -0.013160525  0.484720424  1.060165506  1.839150661  2.012183976</span></span>
+<span><span class="co">#&gt;  [26]  2.094697775  1.194281813  0.851570338  0.691951608 -0.378901958</span></span>
+<span><span class="co">#&gt;  [31] -0.919922782 -0.584201046 -0.868915743  0.038771441 -0.718685710</span></span>
+<span><span class="co">#&gt;  [36] -1.377565341 -1.698875832 -2.191444307 -2.514248159 -2.833408614</span></span>
+<span><span class="co">#&gt;  [41]  0.187167272  0.219061285  0.416382504  0.679735097  0.598894950</span></span>
+<span><span class="co">#&gt;  [46] -0.176125908 -0.545326712 -0.073478847  0.291479442  0.840141490</span></span>
+<span><span class="co">#&gt;  [51]  1.389406493 -0.384466302 -1.076788659 -1.893392594 -2.496267590</span></span>
+<span><span class="co">#&gt;  [56] -2.580584996 -1.985621643 -1.971072061 -1.939498645 -0.825197119</span></span>
+<span><span class="co">#&gt;  [61] -1.042476474 -1.833404579 -2.045556320 -2.103310912 -2.384436291</span></span>
+<span><span class="co">#&gt;  [66] -1.965256762 -2.648646306 -2.886837678 -2.826259345  0.065331942</span></span>
+<span><span class="co">#&gt;  [71] -0.283958303  0.014410405  0.140958493  0.398346254 -0.322029100</span></span>
+<span><span class="co">#&gt;  [76] -1.084222592 -1.322729176 -1.347605398 -1.725033442 -1.741511186</span></span>
+<span><span class="co">#&gt;  [81]  0.427256366  1.028933146  0.303711422  0.451829755  0.514071934</span></span>
+<span><span class="co">#&gt;  [86]  1.153545203  1.133501772  0.359080863 -0.858518792 -1.372722580</span></span>
+<span><span class="co">#&gt;  [91] -0.072119809  1.094737424  2.258696988  3.295099071  3.788761598</span></span>
+<span><span class="co">#&gt;  [96]  4.910118020  5.409002955  5.538925932  5.756989749 -0.721005261</span></span>
+<span><span class="co">#&gt; [101] -1.948109973 -2.563823282 -2.680936795 -1.767364069 -0.879110709</span></span>
+<span><span class="co">#&gt; [106] -0.515287578 -0.173527655  1.078383858  1.555871588  1.866256694</span></span>
+<span><span class="co">#&gt; [111] -0.629619012 -0.611007758 -0.583609089  0.083151465  1.187991824</span></span>
+<span><span class="co">#&gt; [116]  0.732573942  0.672084168 -0.010233441 -0.256925683 -0.457009600</span></span>
+<span><span class="co">#&gt; [121] -0.666124888 -1.069156294 -1.076990981 -1.684567464 -1.562061956</span></span>
+<span><span class="co">#&gt; [126] -0.690525844 -0.724443097 -0.325920199  0.002684844 -0.135842624</span></span>
+<span><span class="co">#&gt; [131]  0.206652901  0.610336424  0.694848119  0.750218172  0.553676396</span></span>
+<span><span class="co">#&gt; [136]  0.266521778 -0.099272205  0.045291041  1.135355234  0.048040647</span></span>
+<span><span class="co">#&gt; [141] -0.514766770 -0.653671479 -0.285372701 -0.281901063 -0.792788936</span></span>
+<span><span class="co">#&gt; [146] -1.404724380 -1.826603451  0.026178449 -0.241273408 -0.585923455</span></span>
+<span><span class="co">#&gt; [151] -1.558908066 -1.910972067 -1.094944484  0.309659264 -1.284969817</span></span>
+<span><span class="co">#&gt; [156] -1.741267248 -2.258301077 -2.329487401  0.143475201  0.710633784</span></span>
+<span><span class="co">#&gt; [161]  1.511909163  2.585932042  2.689440172  2.698429919  2.611542546</span></span>
+<span><span class="co">#&gt; [166]  2.488656739 -0.473864000  0.031217058  0.813486752  1.552400469</span></span>
+<span><span class="co">#&gt; [171]  1.620198331  1.889667979  2.250805334  2.288654850  0.398580264</span></span>
+<span><span class="co">#&gt; [176]  1.171953844  1.919685834  2.084754523  1.343998271  0.910615470</span></span>
+<span><span class="co">#&gt; [181]  0.387903811 -1.435612810 -2.364813918  0.110515409 -0.353411641</span></span>
+<span><span class="co">#&gt; [186]  0.404274818 -0.229538852 -1.600456466 -1.384935976 -0.773704194</span></span>
+<span><span class="co">#&gt; [191] -0.091641616 -0.252336649 -0.364250367 -0.164358074</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">smerf</span><span class="op">$</span><span class="va">Vraisemblance</span><span class="op">)</span> <span class="co"># evolution of the log-likelihood.</span></span></code></pre></div>
+<p><img src="reference/figures/README-plot-1.png" width="100%"></p>
+<p>OOB error at each iteration.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">smerf</span><span class="op">$</span><span class="va">OOB</span> </span>
+<span><span class="co">#&gt; [1] 12.4680781  0.6549920  0.4345158  0.4151839  0.3984141  0.4180083  0.3958871</span></span>
+<span><span class="co">#&gt; [8]  0.3983220  0.4005203</span></span></code></pre></div>
+</div>
+</div>
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
@@ -82,7 +213,12 @@ Random forests are a statistical learning method widely used in many areas of sc
 </ul>
 </div>
 
-
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://pnavaro.github.io/LongituRF/"><img src="https://img.shields.io/website?url=https%3A%2F%2Fpnavaro.github.io%2FLongituRF%2F" alt="Documentation"></a></li>
+</ul>
+</div>
 
   </aside>
 </div>
