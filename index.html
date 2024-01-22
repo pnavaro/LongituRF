@@ -76,25 +76,7 @@
 <p>Train a SMERF model on the generated data. Should take ~ 50 seconds The data are generated with a Brownian motion, so we use the parameter sto=“BM” to specify a Brownian motion as stochastic process</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">smerf</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/MERF.html">MERF</a></span><span class="op">(</span>X<span class="op">=</span><span class="va">data</span><span class="op">$</span><span class="va">X</span>,Y<span class="op">=</span><span class="va">data</span><span class="op">$</span><span class="va">Y</span>,Z<span class="op">=</span><span class="va">data</span><span class="op">$</span><span class="va">Z</span>,id<span class="op">=</span><span class="va">data</span><span class="op">$</span><span class="va">id</span>,time<span class="op">=</span><span class="va">data</span><span class="op">$</span><span class="va">time</span>,mtry<span class="op">=</span><span class="fl">2</span>,ntree<span class="op">=</span><span class="fl">500</span>,sto<span class="op">=</span><span class="st">"BM"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "coucou"</span></span>
-<span><span class="co">#&gt; [1] 0</span></span>
-<span><span class="co">#&gt; [1] "coucou"</span></span>
-<span><span class="co">#&gt; [1] 0</span></span>
-<span><span class="co">#&gt; [1] "coucou"</span></span>
-<span><span class="co">#&gt; [1] 0</span></span>
-<span><span class="co">#&gt; [1] "coucou"</span></span>
-<span><span class="co">#&gt; [1] 0</span></span>
-<span><span class="co">#&gt; [1] "coucou"</span></span>
-<span><span class="co">#&gt; [1] 0</span></span>
-<span><span class="co">#&gt; [1] "coucou"</span></span>
-<span><span class="co">#&gt; [1] 0</span></span>
-<span><span class="co">#&gt; [1] "coucou"</span></span>
-<span><span class="co">#&gt; [1] 0</span></span>
-<span><span class="co">#&gt; [1] "coucou"</span></span>
-<span><span class="co">#&gt; [1] 0</span></span>
-<span><span class="co">#&gt; [1] "coucou"</span></span>
-<span><span class="co">#&gt; [1] 0</span></span>
-<span><span class="co">#&gt; [1] "stopped after 9 iterations."</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "stopped after 8 iterations."</span></span></code></pre></div>
 <p>is the fitted random forest (obtained at the last iteration).</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">smerf</span><span class="op">$</span><span class="va">forest</span> </span>
@@ -105,82 +87,82 @@
 <span><span class="co">#&gt;                      Number of trees: 500</span></span>
 <span><span class="co">#&gt; No. of variables tried at each split: 2</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;           Mean of squared residuals: 0.4005203</span></span>
-<span><span class="co">#&gt;                     % Var explained: 97.57</span></span></code></pre></div>
+<span><span class="co">#&gt;           Mean of squared residuals: 0.3791148</span></span>
+<span><span class="co">#&gt;                     % Var explained: 97.73</span></span></code></pre></div>
 <p>are the predicted random effects for each individual.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">smerf</span><span class="op">$</span><span class="va">random_effects</span> </span>
 <span><span class="co">#&gt;              [,1]       [,2]</span></span>
-<span><span class="co">#&gt;  [1,] -0.46545632 -1.9584240</span></span>
-<span><span class="co">#&gt;  [2,] -0.60530661 -2.0561015</span></span>
-<span><span class="co">#&gt;  [3,]  0.62433379  2.5974150</span></span>
-<span><span class="co">#&gt;  [4,] -0.65495056 -1.9787038</span></span>
-<span><span class="co">#&gt;  [5,]  0.46485020  1.5597098</span></span>
-<span><span class="co">#&gt;  [6,] -0.49842183 -1.3231947</span></span>
-<span><span class="co">#&gt;  [7,] -0.75897409 -1.5594130</span></span>
-<span><span class="co">#&gt;  [8,] -0.13052697 -0.6619248</span></span>
-<span><span class="co">#&gt;  [9,]  0.47026042  1.1258680</span></span>
-<span><span class="co">#&gt; [10,]  0.62681822  2.7196653</span></span>
-<span><span class="co">#&gt; [11,] -0.67647906 -1.4174617</span></span>
-<span><span class="co">#&gt; [12,] -0.04658720  1.0042308</span></span>
-<span><span class="co">#&gt; [13,] -0.06078194  0.6178129</span></span>
-<span><span class="co">#&gt; [14,]  0.03773176  0.4135450</span></span>
-<span><span class="co">#&gt; [15,] -0.16392902 -0.7666988</span></span>
-<span><span class="co">#&gt; [16,]  0.31558309  1.2505464</span></span>
-<span><span class="co">#&gt; [17,]  0.26428589  0.8163429</span></span>
-<span><span class="co">#&gt; [18,]  0.22852866  1.8418661</span></span>
-<span><span class="co">#&gt; [19,]  0.49234613  1.2713469</span></span>
-<span><span class="co">#&gt; [20,]  0.27416833  0.9196796</span></span></code></pre></div>
+<span><span class="co">#&gt;  [1,] -0.47044130 -1.9996332</span></span>
+<span><span class="co">#&gt;  [2,] -0.61467293 -2.0327449</span></span>
+<span><span class="co">#&gt;  [3,]  0.61464395  2.6097592</span></span>
+<span><span class="co">#&gt;  [4,] -0.67621146 -1.9164338</span></span>
+<span><span class="co">#&gt;  [5,]  0.47927855  1.5402910</span></span>
+<span><span class="co">#&gt;  [6,] -0.51480557 -1.3320281</span></span>
+<span><span class="co">#&gt;  [7,] -0.80152943 -1.6187361</span></span>
+<span><span class="co">#&gt;  [8,] -0.12082083 -0.6422576</span></span>
+<span><span class="co">#&gt;  [9,]  0.48665502  1.2012401</span></span>
+<span><span class="co">#&gt; [10,]  0.67057162  2.7274994</span></span>
+<span><span class="co">#&gt; [11,] -0.70194681 -1.3422333</span></span>
+<span><span class="co">#&gt; [12,] -0.05961006  0.9314583</span></span>
+<span><span class="co">#&gt; [13,] -0.06302667  0.6108518</span></span>
+<span><span class="co">#&gt; [14,]  0.07380411  0.4119336</span></span>
+<span><span class="co">#&gt; [15,] -0.14161043 -0.6571476</span></span>
+<span><span class="co">#&gt; [16,]  0.32845088  1.2642185</span></span>
+<span><span class="co">#&gt; [17,]  0.27370622  0.8166049</span></span>
+<span><span class="co">#&gt; [18,]  0.21915431  1.8131999</span></span>
+<span><span class="co">#&gt; [19,]  0.50600274  1.2632782</span></span>
+<span><span class="co">#&gt; [20,]  0.28071744  0.8784794</span></span></code></pre></div>
 <p>are the predicted stochastic processes.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">smerf</span><span class="op">$</span><span class="va">omega</span> </span>
-<span><span class="co">#&gt;   [1]  0.021384336  0.153636918  0.660845719  0.203663436  0.844951005</span></span>
-<span><span class="co">#&gt;   [6]  1.405052995  1.395484983  1.693417774  2.465496910 -0.230499119</span></span>
-<span><span class="co">#&gt;  [11] -0.696626782 -0.598514083 -0.091560739 -0.216310002  0.230512038</span></span>
-<span><span class="co">#&gt;  [16]  0.339009358  1.107898069  1.702639959  1.942853432  2.909096520</span></span>
-<span><span class="co">#&gt;  [21] -0.013160525  0.484720424  1.060165506  1.839150661  2.012183976</span></span>
-<span><span class="co">#&gt;  [26]  2.094697775  1.194281813  0.851570338  0.691951608 -0.378901958</span></span>
-<span><span class="co">#&gt;  [31] -0.919922782 -0.584201046 -0.868915743  0.038771441 -0.718685710</span></span>
-<span><span class="co">#&gt;  [36] -1.377565341 -1.698875832 -2.191444307 -2.514248159 -2.833408614</span></span>
-<span><span class="co">#&gt;  [41]  0.187167272  0.219061285  0.416382504  0.679735097  0.598894950</span></span>
-<span><span class="co">#&gt;  [46] -0.176125908 -0.545326712 -0.073478847  0.291479442  0.840141490</span></span>
-<span><span class="co">#&gt;  [51]  1.389406493 -0.384466302 -1.076788659 -1.893392594 -2.496267590</span></span>
-<span><span class="co">#&gt;  [56] -2.580584996 -1.985621643 -1.971072061 -1.939498645 -0.825197119</span></span>
-<span><span class="co">#&gt;  [61] -1.042476474 -1.833404579 -2.045556320 -2.103310912 -2.384436291</span></span>
-<span><span class="co">#&gt;  [66] -1.965256762 -2.648646306 -2.886837678 -2.826259345  0.065331942</span></span>
-<span><span class="co">#&gt;  [71] -0.283958303  0.014410405  0.140958493  0.398346254 -0.322029100</span></span>
-<span><span class="co">#&gt;  [76] -1.084222592 -1.322729176 -1.347605398 -1.725033442 -1.741511186</span></span>
-<span><span class="co">#&gt;  [81]  0.427256366  1.028933146  0.303711422  0.451829755  0.514071934</span></span>
-<span><span class="co">#&gt;  [86]  1.153545203  1.133501772  0.359080863 -0.858518792 -1.372722580</span></span>
-<span><span class="co">#&gt;  [91] -0.072119809  1.094737424  2.258696988  3.295099071  3.788761598</span></span>
-<span><span class="co">#&gt;  [96]  4.910118020  5.409002955  5.538925932  5.756989749 -0.721005261</span></span>
-<span><span class="co">#&gt; [101] -1.948109973 -2.563823282 -2.680936795 -1.767364069 -0.879110709</span></span>
-<span><span class="co">#&gt; [106] -0.515287578 -0.173527655  1.078383858  1.555871588  1.866256694</span></span>
-<span><span class="co">#&gt; [111] -0.629619012 -0.611007758 -0.583609089  0.083151465  1.187991824</span></span>
-<span><span class="co">#&gt; [116]  0.732573942  0.672084168 -0.010233441 -0.256925683 -0.457009600</span></span>
-<span><span class="co">#&gt; [121] -0.666124888 -1.069156294 -1.076990981 -1.684567464 -1.562061956</span></span>
-<span><span class="co">#&gt; [126] -0.690525844 -0.724443097 -0.325920199  0.002684844 -0.135842624</span></span>
-<span><span class="co">#&gt; [131]  0.206652901  0.610336424  0.694848119  0.750218172  0.553676396</span></span>
-<span><span class="co">#&gt; [136]  0.266521778 -0.099272205  0.045291041  1.135355234  0.048040647</span></span>
-<span><span class="co">#&gt; [141] -0.514766770 -0.653671479 -0.285372701 -0.281901063 -0.792788936</span></span>
-<span><span class="co">#&gt; [146] -1.404724380 -1.826603451  0.026178449 -0.241273408 -0.585923455</span></span>
-<span><span class="co">#&gt; [151] -1.558908066 -1.910972067 -1.094944484  0.309659264 -1.284969817</span></span>
-<span><span class="co">#&gt; [156] -1.741267248 -2.258301077 -2.329487401  0.143475201  0.710633784</span></span>
-<span><span class="co">#&gt; [161]  1.511909163  2.585932042  2.689440172  2.698429919  2.611542546</span></span>
-<span><span class="co">#&gt; [166]  2.488656739 -0.473864000  0.031217058  0.813486752  1.552400469</span></span>
-<span><span class="co">#&gt; [171]  1.620198331  1.889667979  2.250805334  2.288654850  0.398580264</span></span>
-<span><span class="co">#&gt; [176]  1.171953844  1.919685834  2.084754523  1.343998271  0.910615470</span></span>
-<span><span class="co">#&gt; [181]  0.387903811 -1.435612810 -2.364813918  0.110515409 -0.353411641</span></span>
-<span><span class="co">#&gt; [186]  0.404274818 -0.229538852 -1.600456466 -1.384935976 -0.773704194</span></span>
-<span><span class="co">#&gt; [191] -0.091641616 -0.252336649 -0.364250367 -0.164358074</span></span></code></pre></div>
+<span><span class="co">#&gt;   [1]  0.042927895  0.147544244  0.728306436  0.238740648  0.878555073</span></span>
+<span><span class="co">#&gt;   [6]  1.372391811  1.355081942  1.714186164  2.454631871 -0.224172727</span></span>
+<span><span class="co">#&gt;  [11] -0.771619578 -0.638139662 -0.110855877 -0.274885812  0.154821025</span></span>
+<span><span class="co">#&gt;  [16]  0.223535598  0.960308660  1.564343196  1.793740627  2.739708485</span></span>
+<span><span class="co">#&gt;  [21] -0.054726450  0.430217111  0.997516942  1.831464899  1.951099579</span></span>
+<span><span class="co">#&gt;  [26]  2.031300484  1.087187372  0.806847836  0.688782384 -0.401169616</span></span>
+<span><span class="co">#&gt;  [31] -0.956470995 -0.665016679 -0.945473912  0.010352006 -0.750865218</span></span>
+<span><span class="co">#&gt;  [36] -1.424897583 -1.752543069 -2.239487437 -2.648899202 -3.027363201</span></span>
+<span><span class="co">#&gt;  [41]  0.196395325  0.228399016  0.543749080  0.727684010  0.602878173</span></span>
+<span><span class="co">#&gt;  [46] -0.170359202 -0.536112711 -0.102531844  0.247532652  0.767423467</span></span>
+<span><span class="co">#&gt;  [51]  1.325316992 -0.366771859 -1.020826847 -1.864767301 -2.427532790</span></span>
+<span><span class="co">#&gt;  [56] -2.564137250 -1.983315824 -1.992792953 -1.984368974 -0.791009731</span></span>
+<span><span class="co">#&gt;  [61] -1.060418450 -1.742087391 -1.999776297 -2.077471760 -2.343449131</span></span>
+<span><span class="co">#&gt;  [66] -1.929655325 -2.610273737 -2.796641310 -2.701594138  0.073220663</span></span>
+<span><span class="co">#&gt;  [71] -0.231037958  0.046660523  0.099412681  0.311706388 -0.396716624</span></span>
+<span><span class="co">#&gt;  [76] -1.138871184 -1.440298127 -1.431893457 -1.852242873 -1.936148046</span></span>
+<span><span class="co">#&gt;  [81]  0.374720508  0.966894339  0.180994587  0.213632067  0.225978579</span></span>
+<span><span class="co">#&gt;  [86]  0.975305431  0.953457605  0.127776817 -1.024882008 -1.534164706</span></span>
+<span><span class="co">#&gt;  [91] -0.001848051  1.161949828  2.320147583  3.293365800  3.786215700</span></span>
+<span><span class="co">#&gt;  [96]  4.926242594  5.359637740  5.492835310  5.636595192 -0.729166229</span></span>
+<span><span class="co">#&gt; [101] -1.989150100 -2.572208174 -2.659577307 -1.795959803 -0.927460392</span></span>
+<span><span class="co">#&gt; [106] -0.504197017 -0.148582145  1.012720220  1.488879857  1.834392941</span></span>
+<span><span class="co">#&gt; [111] -0.567131762 -0.573726849 -0.564203770  0.038629294  1.074468772</span></span>
+<span><span class="co">#&gt; [116]  0.748523124  0.733761874  0.037340906 -0.213708488 -0.418904793</span></span>
+<span><span class="co">#&gt; [121] -0.580671267 -1.068210288 -1.126850876 -1.697832750 -1.627826269</span></span>
+<span><span class="co">#&gt; [126] -0.735778166 -0.742535863 -0.365548489 -0.028418638 -0.054202228</span></span>
+<span><span class="co">#&gt; [131]  0.168411153  0.572619731  0.670570822  0.655614988  0.571203358</span></span>
+<span><span class="co">#&gt; [136]  0.273826235 -0.138430043 -0.084212296  0.898791686  0.039609805</span></span>
+<span><span class="co">#&gt; [141] -0.526291887 -0.696857399 -0.364099349 -0.403731834 -1.022063465</span></span>
+<span><span class="co">#&gt; [146] -1.677498811 -2.100962879  0.033758667 -0.244497454 -0.550166836</span></span>
+<span><span class="co">#&gt; [151] -1.578982421 -1.852133463 -0.999842061  0.247771832 -1.370710819</span></span>
+<span><span class="co">#&gt; [156] -1.836427260 -2.353524574 -2.387391163  0.142613696  0.727265431</span></span>
+<span><span class="co">#&gt; [161]  1.528823903  2.592088502  2.612094030  2.607972015  2.564047997</span></span>
+<span><span class="co">#&gt; [166]  2.476983080 -0.446067115  0.087469549  0.864508802  1.638133768</span></span>
+<span><span class="co">#&gt; [171]  1.694184422  1.942668233  2.343957499  2.397603230  0.382716827</span></span>
+<span><span class="co">#&gt; [176]  1.150850959  1.842091667  1.874638531  1.119218402  0.690999538</span></span>
+<span><span class="co">#&gt; [181]  0.239809886 -1.590678616 -2.553255395  0.126474662 -0.343000674</span></span>
+<span><span class="co">#&gt; [186]  0.495459710 -0.205166657 -1.642776091 -1.375574273 -0.751664243</span></span>
+<span><span class="co">#&gt; [191] -0.174300782 -0.442753968 -0.493623295 -0.266079680</span></span></code></pre></div>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">smerf</span><span class="op">$</span><span class="va">Vraisemblance</span><span class="op">)</span> <span class="co"># evolution of the log-likelihood.</span></span></code></pre></div>
 <p><img src="reference/figures/README-plot-1.png" width="100%"></p>
 <p>OOB error at each iteration.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">smerf</span><span class="op">$</span><span class="va">OOB</span> </span>
-<span><span class="co">#&gt; [1] 12.4680781  0.6549920  0.4345158  0.4151839  0.3984141  0.4180083  0.3958871</span></span>
-<span><span class="co">#&gt; [8]  0.3983220  0.4005203</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] 12.4233086  0.6753460  0.4546375  0.3986009  0.3865408  0.3887012  0.3772537</span></span>
+<span><span class="co">#&gt; [8]  0.3791148</span></span></code></pre></div>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
