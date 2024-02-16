@@ -1,3 +1,4 @@
 [deps]
 CategoricalArrays = "324d7699-5711-5eae-9e2f-1d82baa6b597"
+DecisionTree = "7806a523-6efd-50cb-b5f6-3fa6f1930dbb"
 RCall = "6f49c342-dc21-5d91-9882-a32aef131414"
